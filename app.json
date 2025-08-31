@@ -1,0 +1,39 @@
+{
+  "name": "Admin Backend",
+  "description": "Rails admin management system",
+  "repository": "https://github.com/your-username/starchild-admin",
+  "keywords": ["ruby", "rails", "admin", "management"],
+  "env": {
+    "SECRET_KEY_BASE": {
+      "description": "Rails secret key base",
+      "value": "does-not-matter-for-now"
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "description": "Serve static files",
+      "value": "true"
+    },
+    "RAILS_ENV": {
+      "description": "Rails environment",
+      "value": "production"
+    },
+    "RAILS_LOG_TO_STDOUT": {
+      "description": "Log to stdout",
+      "value": "true"
+    },
+    "RAILS_FORCE_SSL": {
+      "description": "Force SSL",
+      "value": "false"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  }
+}
