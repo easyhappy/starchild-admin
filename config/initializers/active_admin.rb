@@ -116,7 +116,7 @@ ActiveAdmin.setup do |config|
   # roots for each namespace.
   #
   # Default:
-  config.root_to = 'tasks#index'
+  config.root_to = 'cores#index'
 
   # == Admin Comments
   #
