@@ -1,0 +1,65 @@
+panel "Dashboard" do
+  div class: "dashboard-container" do
+    columns do
+      column do
+        div class: "stat-box" do
+            h3 "UserCount"
+            h2 User.count.to_s
+        end
+
+        div class: "stat-box" do
+            h3 "UserContextCount"
+            h2 UserContext.count.to_s
+        end
+      end
+    end
+  end
+end
+
+style do
+  raw """
+    .dashboard-container {
+      margin-top: 20px;
+    }
+    .stat-box {
+      text-align: center;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+    }
+    .stat-box h2 {
+      font-size: 32px;
+      margin: 10px 0;
+      color: #2D4262;
+    }
+    .stat-box h3 {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    .stat-footer {
+      font-size: 12px;
+      color: #888;
+      margin-top: 10px;
+    }
+    .quick-links {
+      list-style-type: none;
+      padding: 0;
+    }
+    .quick-links li {
+      margin-bottom: 10px;
+    }
+    .quick-links li a {
+      display: block;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-radius: 3px;
+      text-decoration: none;
+      color: #333;
+      transition: background-color 0.2s;
+    }
+    .quick-links li a:hover {
+      background-color: #e0e0e0;
+    }
+  """
+end

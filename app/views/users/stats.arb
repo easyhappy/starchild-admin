@@ -1,0 +1,151 @@
+columns do
+  column do
+    if custom_date.present?
+      panel "Custom Date: #{custom_date}" do
+        table_for custom_date_stats.first(20) do
+          column "User ID" do |user_id, count|
+            user_id
+          end
+
+          column "User Name" do |user_id, count|
+            user_info[user_id]
+          end
+
+          column "Context Count" do |user_id, count|
+            count
+          end
+        end
+      end
+
+      panel "Custom Date: #{custom_date} Task Stats(Top 20)" do
+        table_for custom_date_task_stats.first(20) do
+          column "User ID" do |user_id, count|
+            user_id
+          end
+
+          column "User Name" do |user_id, count|
+            user_info[user_id]
+          end
+
+          column "Task count" do |user_id, count|
+            count
+          end
+        end
+      end
+
+      panel "Custom Date: #{custom_date} Subscription Task Stats(Top 20)" do
+        table_for custom_date_subscription_task_stats.first(20) do
+          column "User ID" do |user_id, count|
+            user_id
+          end
+
+          column "User Name" do |user_id, count|
+            user_info[user_id]
+          end
+
+          column "Task count" do |user_id, count|
+            count
+          end
+        end
+      end
+    end
+
+    panel "Yesterday's User Stats(Top 20)" do
+      table_for yesterday_stats.first(20) do
+        column "User ID" do |user_id, count|
+          user_id
+        end
+
+        column "User Name" do |user_id, count|
+          user_info[user_id]
+        end
+
+        column "Context Count" do |user_id, count|
+          count
+        end
+      end
+    end
+
+    panel "Yesterday's Task Stats(Top 20)" do
+      table_for yesterday_task_stats.first(20) do
+        column "User ID" do |user_id, count|
+          user_id
+        end
+
+        column "User Name" do |user_id, count|
+          user_info[user_id]
+        end
+
+        column "Task count" do |user_id, count|
+          count
+        end
+      end
+    end
+
+    panel "Yesterday's Subscription Task Stats(Top 20)" do
+      table_for yesterday_subscription_task_stats.first(20) do
+        column "User ID" do |user_id, count|
+          user_id
+        end
+
+        column "User Name" do |user_id, count|
+          user_info[user_id]
+        end
+
+        column "Task count" do |user_id, count|
+          count
+        end
+      end
+    end
+  end
+
+  column do
+    panel "Today's User Stats(Top 20)" do
+      table_for today_stats.first(20) do
+        column "User ID" do |user_id, count|
+          user_id
+        end
+
+        column "User Name" do |user_id, count|
+          user_info[user_id]
+        end
+
+        column "Context Count" do |user_id, count|
+          count
+        end
+      end
+    end
+
+    panel "Today's Task Stats(Top 20)" do
+      table_for today_task_stats.first(20) do
+        column "User ID" do |user_id, count|
+          user_id
+        end
+
+        column "User Name" do |user_id, count|
+          user_info[user_id]
+        end
+
+        column "Task count" do |user_id, count|
+          count
+        end
+      end
+    end
+
+    panel "Today's Subscription Task Stats(Top 20)" do
+      table_for today_subscription_task_stats.first(20) do
+        column "User ID" do |user_id, count|
+          user_id
+        end
+
+        column "User Name" do |user_id, count|
+          user_info[user_id]
+        end
+
+        column "Task count" do |user_id, count|
+          count
+        end
+      end
+    end
+  end
+end

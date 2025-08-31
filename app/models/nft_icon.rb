@@ -1,0 +1,2 @@
+class NftIcon < ApplicationRecord
+end

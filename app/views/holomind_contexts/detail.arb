@@ -1,0 +1,10 @@
+panel "Holomind Context Details" do
+  attributes_table_for holomind_contexts do
+    row :msg_id
+    row :user_id
+    row :user_name
+    row :user_query
+    row :content
+    row :created_at
+  end
+end 

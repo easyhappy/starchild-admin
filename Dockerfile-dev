@@ -1,0 +1,10 @@
+FROM --platform=linux/amd64 ruby:3.2.1-alpine3.17
+RUN apk update && apk add --virtual build-dependencies build-base libpq-dev libc6-compat tzdata gcompat
+COPY Gemfile* /tmp/
+WORKDIR /tmp
+RUN bundle config set --local without 'development test'
+RUN bundle install
+WORKDIR /app
+COPY . .
+RUN mkdir -p tmp/pids
+CMD bundle exec puma -t 5:5 -e development -b tcp://0.0.0.0:3000

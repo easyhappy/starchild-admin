@@ -1,0 +1,55 @@
+panel "Thread Information" do
+    span "Title: #{thread_title}"
+    div style: "margin-top: 10px;" do
+        span "Thread ID: #{thread_id}"
+    end
+    div style: "margin-top: 10px;" do
+        span "User ID: #{user_id}"
+    end
+end
+
+panel "Full Conversation Details" do
+  holomind_contexts.compact.each do |context|
+    panel "Message: #{context&.msg_id || 'Unknown'}" do
+      attributes_table_for context do
+        row :msg_id
+        row "User Query" do |ctx|
+          div style: "background: #f0f8ff; padding: 10px; border: 1px solid #ddd; border-radius: 4px; margin: 5px 0; white-space: pre-wrap;" do
+            ctx.user_query || "No user query"
+          end
+        end
+        row "Agent Response" do |ctx|
+          div style: "background: #f8f8f0; padding: 10px; border: 1px solid #ddd; border-radius: 4px; margin: 5px 0; white-space: pre-wrap;max-height: 200px; overflow-y: auto;" do
+            ctx.agent_response || "No agent response"
+          end
+        end
+
+        row "Token Info" do |ctx|   
+          ctx.token_info
+        end
+
+        row "Kline Image" do |ctx|
+          ctx.kline_image
+        end
+
+        row "Created At" do |ctx|
+          ctx.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        end
+        row "Actions" do |ctx|
+          link_to "View Details", "/holomind_contexts/detail?id=#{ctx.msg_id}", target: "_blank"
+        end
+      end
+    end
+  end
+end
+
+script do
+  raw <<-JS
+    function toggleFullContent(msgId) {
+      var element = document.getElementById('full_content_' + msgId);
+      if (element) {
+        element.style.display = element.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+  JS
+end

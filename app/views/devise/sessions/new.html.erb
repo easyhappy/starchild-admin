@@ -1,0 +1,34 @@
+<div id="login">
+  <h2><%= render_or_call_method_or_proc_on(self, active_admin_application.site_title) %> 登录</h2>
+
+  <% scope = Devise::Mapping.find_scope!(resource_name) %>
+  <%= active_admin_form_for(resource, as: resource_name, url: send(:"#{scope}_session_path"), html: { id: "session_new" }) do |f| %>
+    <fieldset class="inputs">
+      <ol>
+        <li class="email input">
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true %>
+        </li>
+        <li class="password input">
+          <%= f.label :password %>
+          <%= f.password_field :password, autocomplete: "off" %>
+        </li>
+        <% if devise_mapping.rememberable? -%>
+          <li class="boolean input">
+            <%= f.label :remember_me, class: "label" do %>
+              <%= f.check_box :remember_me %>
+              记住我
+            <% end %>
+          </li>
+        <% end -%>
+      </ol>
+    </fieldset>
+    <fieldset class="actions">
+      <ol>
+        <li class="action input_action">
+          <%= f.submit "登录", class: "button" %>
+        </li>
+      </ol>
+    </fieldset>
+  <% end %>
+</div> 

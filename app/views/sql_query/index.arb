@@ -1,0 +1,111 @@
+div class: "sql-query-container" do
+  h2 "SQL Query Executor"
+  p "Execute SELECT queries on the database. Only SELECT statements are allowed for security reasons."
+
+  form action: sql_query_executor_path, method: :get, local: true do
+    div class: "form-group" do
+      label "SQL Query:", for: "sql_query"
+      textarea name: "sql_query", id: "sql_query",
+               placeholder: "SELECT * FROM task LIMIT 10;",
+               rows: 6,
+               style: "width: 100%; font-family: monospace; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" do
+        params[:sql_query]
+      end
+    end
+
+    div class: "form-actions", style: "margin-top: 10px;" do
+      input type: "submit", value: "Execute Query",
+            class: "btn btn-primary",
+            style: "background-color: #007cba; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;"
+    end
+  end
+
+  if params[:sql_query].present? && query_result
+    hr style: "margin: 20px 0;"
+
+    if query_result[:error]
+      div class: "error-message", style: "color: red; background: #ffebee; padding: 10px; border-radius: 4px; margin: 10px 0;" do
+        strong "Error: #{query_result[:error]}"
+      end
+    else
+      h3 "Query Results"
+      div class: "query-info", style: "background: #f5f5f5; padding: 10px; border-radius: 4px; margin-bottom: 10px;" do
+        strong "Executed Query: "
+        code query_result[:query], style: "background: white; padding: 2px 4px; border-radius: 2px;"
+      end
+
+      if query_result[:row_count] && query_result[:row_count] > 0
+        table_for query_result[:result] do
+          query_result[:column_names].each_with_index do |col_name, index|
+            column col_name.to_sym do |row|
+              value = row[index]
+              begin
+                case value
+                when nil
+                  span style: "color: #999; font-style: italic;" do
+                    "NULL"
+                  end
+                when String
+                  if value.length > 100
+                    unique_id = SecureRandom.hex(4)
+                    div class: "truncated-text", style: "position: relative;" do
+                      span class: "text-preview", id: "preview-#{unique_id}", style: "display: inline;" do
+                        "#{value[0, 100]}..."
+                      end
+                      span class: "text-full", id: "full-#{unique_id}", style: "display: none;" do
+                        value
+                      end
+                      a href: "#", class: "view-more-btn",
+                        style: "color: #007cba; text-decoration: none; margin-left: 5px; font-size: 12px;",
+                        onclick: "toggleText(this, '#{unique_id}'); return false;" do
+                        "view more"
+                      end
+                    end
+                  else
+                    value
+                  end
+                else
+                  value.to_s
+                end
+              rescue => e
+                "Error: #{e.message}"
+              end
+            end
+          end
+        end
+
+        div class: "result-info", style: "margin-top: 10px; color: #666;" do
+          "#{query_result[:row_count]} row(s) returned"
+          if query_result[:row_count] >= 1000
+            " (limited to 1000 rows for performance)"
+          end
+        end
+      else
+        div class: "no-results", style: "color: #666; font-style: italic; padding: 20px;" do
+          "Query executed successfully but returned no results."
+        end
+      end
+    end
+  end
+
+  script type: "text/javascript" do
+    raw """
+    function toggleText(link, id) {
+      var preview = document.getElementById('preview-' + id);
+      var full = document.getElementById('full-' + id);
+
+      if (preview.style.display === 'none') {
+        // Show preview, hide full
+        preview.style.display = 'inline';
+        full.style.display = 'none';
+        link.textContent = 'view more';
+      } else {
+        // Show full, hide preview
+        preview.style.display = 'none';
+        full.style.display = 'inline';
+        link.textContent = 'view less';
+      }
+    }
+    """
+  end
+end

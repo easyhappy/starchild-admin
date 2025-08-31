@@ -1,0 +1,181 @@
+// Sass variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Active Admin's got SASS!
+@import "active_admin/mixins";
+@import "active_admin/base";
+
+// Overriding any non-variable Sass must be done after the fact.
+// For example, to change the default status-tag color:
+//
+.status_tag.unhealthy { background: #CC3333; }
+.status_tag.red { background: #DC4C64; }
+.status_tag.green { background: #14A44D; }
+.status_tag.orange { background: #E4A11B; }
+.status_tag.grey { background: #9FA6B2; }
+
+
+.helper {
+    color: #888;
+}
+
+
+input.es-input { padding-right: 20px !important; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAICAYAAADJEc7MAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAG2YAABzjgAA4DIAAIM2AAB5CAAAxgwAADT6AAAgbL5TJ5gAAABGSURBVHjaYvz//z8DOYCJgUzA0tnZidPK8vJyRpw24pLEpwnuVHRFhDQxMDAwMPz//x+OOzo6/iPz8WFGuocqAAAA//8DAD/sORHYg7kaAAAAAElFTkSuQmCC) right center no-repeat; }
+input.es-input.open {
+-webkit-border-bottom-left-radius: 0; -moz-border-radius-bottomleft: 0; border-bottom-left-radius: 0;
+-webkit-border-bottom-right-radius: 0; -moz-border-radius-bottomright: 0; border-bottom-right-radius: 0; }
+.es-list { position: absolute; padding: 0; margin: 0; border: 1px solid #d1d1d1; display: none; z-index: 1000; background: #fff; max-height: 160px; overflow-y: auto;
+-moz-box-shadow: 0 2px 3px #ccc; -webkit-box-shadow: 0 2px 3px #ccc; box-shadow: 0 2px 3px #ccc; }
+.es-list li { display: block; padding: 5px 10px; margin: 0; }
+.es-list li.selected { background: #f3f3f3; }
+.es-list li[disabled] { opacity: .5; }
+
+table tr td.col-currency, table tr th.col-currency{text-align: right}
+
+form input[type=date] {width: 200px;}
+table thead tr th.col-user_percentage{text-align: right;}
+table tbody tr td.col-user_percentage{text-align: right;}
+
+// 自定义只读字段样式
+.read-only-field {
+  margin-bottom: 10px;
+  padding: 5px 0;
+  
+  span:first-child {
+    font-weight: bold;
+    display: inline-block;
+    width: 100px;
+  }
+}
+
+// Custom Multi-Select Categories Styles
+.categories-multiselect {
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 8px;
+    margin-bottom: 10px;
+    
+    .category-option {
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      padding: 12px 16px;
+      cursor: pointer;
+      text-align: center;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      user-select: none;
+      position: relative;
+      
+      &:hover {
+        background: #e9ecef;
+        border-color: #dee2e6;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+      
+      &.selected {
+        background: #22c55e !important;
+        border-color: #22c55e !important;
+        color: white !important;
+        font-weight: 600;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+        
+        &:hover {
+          background: #16a34a !important;
+          border-color: #16a34a !important;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(34, 197, 94, 0.5);
+        }
+        
+        &::after {
+          content: " ✓";
+          font-weight: bold;
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+  
+  // Animation for selection changes
+  .category-option.just-selected {
+    animation: highlightSelected 0.5s ease-in-out;
+  }
+  
+  .category-option.just-deselected {
+    animation: highlightDeselected 0.5s ease-in-out;
+  }
+  
+  @keyframes highlightSelected {
+    0% { 
+      transform: scale(1); 
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    50% { 
+      transform: scale(1.05); 
+      box-shadow: 0 8px 20px rgba(34, 197, 94, 0.6);
+    }
+    100% { 
+      transform: scale(1); 
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+    }
+  }
+  
+  @keyframes highlightDeselected {
+    0% { 
+      transform: scale(1); 
+      box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+    }
+    50% { 
+      transform: scale(0.95); 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    100% { 
+      transform: scale(1); 
+      box-shadow: none;
+    }
+  }
+  
+  .selected-categories {
+    margin-top: 10px;
+    
+    .selected-category-tag {
+      display: inline-block;
+      background: #22c55e;
+      color: white;
+      padding: 4px 8px;
+      margin: 2px 4px 2px 0;
+      border-radius: 4px;
+      font-size: 12px;
+      
+      .remove-btn {
+        margin-left: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        
+        &:hover {
+          color: #ffcccc;
+        }
+      }
+    }
+  }
+  
+  // Hide the original select element
+  .categories-multiselect-hidden {
+    display: none !important;
+  }
+  
+  .hint {
+    color: #6c757d;
+    font-size: 13px;
+    margin-top: 5px;
+  }
+}

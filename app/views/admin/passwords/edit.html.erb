@@ -1,0 +1,44 @@
+<div class="panel">
+  <h3>Update Password</h3>
+  
+  <%= form_for @admin_user, url: admin_update_password_path, html: { method: :put } do |f| %>
+    <% if @admin_user.errors.any? %>
+      <div class="flash flash_error">
+        <% @admin_user.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+      </div>
+    <% end %>
+    
+    <div class="panel_contents">
+      <div class="inputs">
+        <fieldset class="inputs">
+          <ol>
+            <li class="password input">
+              <%= f.label :current_password, "Current Password" %>
+              <%= f.password_field :current_password, autocomplete: "current-password" %>
+            </li>
+            
+            <li class="password input">
+              <%= f.label :password, "New Password" %>
+              <%= f.password_field :password, autocomplete: "new-password" %>
+            </li>
+            
+            <li class="password input">
+              <%= f.label :password_confirmation, "Confirm New Password" %>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+            </li>
+          </ol>
+        </fieldset>
+        
+        <fieldset class="actions">
+          <ol>
+            <li class="action input_action">
+              <%= f.submit "Update Password", class: "button" %>
+            </li>
+          </ol>
+        </fieldset>
+      </div>
+    </div>
+  <% end %>
+</div> 
