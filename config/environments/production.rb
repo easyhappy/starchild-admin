@@ -106,7 +106,8 @@ Rails.application.configure do
   config.hosts << "admin.testnet.holominds.ai" 
   config.hosts << "admin-mainnet-db321c8e7ac3.herokuapp.com"
   config.hosts << "admin-mainnet.herokuapp.com"
-  # 配置 CORS，只在 rack/cors 可用时  if defined?(Rack::Cors)
+  # 配置 CORS，只在 rack/cors 可用时
+  if defined?(Rack::Cors)
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins 'mgmt.mainnet.holominds.ai','admin.testnet.holominds.ai'
