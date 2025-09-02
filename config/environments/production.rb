@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 # 只在 gem 可用时引入 rack/cors
 begin
-  require 'rack/cors'
+  require "rack/cors"
 rescue LoadError
   # rack-cors gem 不可用，跳过
 end
@@ -19,7 +19,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
@@ -55,14 +55,18 @@ Rails.application.configure do
   config.force_ssl = false
 
   # 信任 X-Forwarded-Proto 头
-  config.ssl_options = { redirect: { exclude: -> request { request.headers["X-Forwarded-Proto"] == "https" } } }
+  config.ssl_options = {
+    redirect: {
+      exclude: ->(request) { request.headers["X-Forwarded-Proto"] == "https" }
+    }
+  }
 
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -91,37 +95,37 @@ Rails.application.configure do
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
-  logger           = ActiveSupport::Logger.new(STDOUT)
+  logger = ActiveSupport::Logger.new(STDOUT)
   logger.formatter = config.log_formatter
-  config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
   # 信任代理头信息
   # config.action_dispatch.trusted_proxies = %w(mgmt.mainnet.holominds.ai).map { |proxy| IPAddr.new(proxy) }
-  
+
   # 配置允许的主机
   config.hosts << "mgmt.mainnet.holominds.ai"
-  config.hosts << "admin.testnet.holominds.ai" 
+  config.hosts << "admin.testnet.holominds.ai"
   config.hosts << "admin-mainnet-db321c8e7ac3.herokuapp.com"
-  config.hosts << "admin-mainnet.herokuapp.com"
+  config.hosts << "admin-testnet-741b48f7f9ea.herokuapp.com"
   # 配置 CORS，只在 rack/cors 可用时
   if defined?(Rack::Cors)
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'mgmt.mainnet.holominds.ai','admin.testnet.holominds.ai'
-        resource '*',
-          headers: :any,
-          methods: [:get, :post, :put, :patch, :delete, :options, :head],
-          credentials: true
+        origins "mgmt.mainnet.holominds.ai", "admin.testnet.holominds.ai"
+        resource "*",
+                 headers: :any,
+                 methods: %i[get post put patch delete options head],
+                 credentials: true
       end
     end
   end
-  
+
   # 设置 X-Forwarded-Proto 头信息
-  config.action_controller.default_url_options = { protocol: 'https' }
-  
+  config.action_controller.default_url_options = { protocol: "https" }
+
   # 允许来自所有域的请求
   config.action_controller.forgery_protection_origin_check = false
 end

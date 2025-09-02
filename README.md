@@ -90,3 +90,19 @@ rails server
 ```
 AdminUser.create()
 ```
+## 📋 Deployment Scripts
+
+### Mainnet Deployment
+```bash
+./scripts/deploy-admin-mainnet.sh
+```
+
+### Testnet Deployment
+```bash
+./scripts/deploy-admin-testnet.sh
+```
+
+**Note:** Before using the testnet script, create the Heroku app first:
+```bash
+heroku apps:create admin-testnet
+```
