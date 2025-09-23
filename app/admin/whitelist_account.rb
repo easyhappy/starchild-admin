@@ -16,7 +16,7 @@ ActiveAdmin.register WhitelistAccount    do
   filter :account
   filter :telegram_user_id
 
-  permit_params :account, :burn_at, :mint_tx_status, :mint_tx_hash, :telegram_user_id, :nft_id, :valid_at, :is_vip 
+  permit_params :account, :burn_at, :mint_tx_status, :mint_tx_hash, :telegram_user_id, :nft_id, :valid_at, :is_vip, :memo
 
   form do |f|
     f.inputs "Whitelist Account Details" do
@@ -28,6 +28,7 @@ ActiveAdmin.register WhitelistAccount    do
       f.input :nft_id, as: :string
       f.input :valid_at
       f.input :is_vip
+      f.input :memo
     end
     f.actions
   end
@@ -46,6 +47,7 @@ ActiveAdmin.register WhitelistAccount    do
     column :updated_at
     column :valid_at
     column :is_vip
+    column :memo
     actions
   end
 end
