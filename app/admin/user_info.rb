@@ -22,5 +22,6 @@ ActiveAdmin.register UserInfo do
     column :user_name
     column :avatar_url
     column :settings
+    column :user_source
   end
 end
