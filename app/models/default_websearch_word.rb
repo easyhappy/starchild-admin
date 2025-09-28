@@ -1,0 +1,2 @@
+class DefaultWebsearchWord < ApplicationRecord
+end
