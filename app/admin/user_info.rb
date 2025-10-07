@@ -3,10 +3,11 @@ ActiveAdmin.register UserInfo do
 
   actions :index
   filter :userid
+  filter :user_name
 
   controller do
     before_action :check_permissions
-    
+
     def check_permissions
       authorize! :manage, UserInfo
     end
